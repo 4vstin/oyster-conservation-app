@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Oyster Data Collection</title>
+    <link rel="stylesheet" href="styles/oyster-styles.css">
+  </head>
+  <body>
+    <div id="main-content">
+      <!-- title of project-->
+      <p class="title-oyster">Oyster Data Collection</p>
+
+      <!-- name input-->
+      <!--<p class="names-title">Names:</p>
+      <input placeholder="Enter name" class="input-box" id="name-input">-->
+
+      <p class="id-title">Cage ID#:</p>
+      <input placeholder="Enter ID#" class="input-box" id="id-input">
+
+      <!-- Slect whether August or September-->
+      <p>Select Month:</p>
+      <button class="month-button" id="aug-button">August Reading</button>
+      <button class="month-button" id="sep-button">September Reading</button>
+
+      <p>Select Data Type:</p>
+      <button class="typeofdata-button" id="sizetype-button">Size Records</button>
+      <button class="typeofdata-button" id="counttype-button">Spat Count Records</button>
+      <button class="typeofdata-button" id="wildtype-button">Wild Spat Records</button>
+
+      <!-- oyster size input-->
+      <p id="data-input-title">Enter oyster size:</p>
+      <input placeholder="Enter value" class="input-box" id="value-input">
+      <button class="add-button" id="add-button">Add Data</button>
+
+      <!-- list that displays the oyster size data-->
+      <p id="data-display-title">Oyster Size Data:</p>
+      <p id="size-data-display" class="data-display"></p>
+
+      <!-- button to submit the data-->
+      <button class="submit-button" id="submit-button">Submit</button>
+    </div>
+    <script src="sources/oyster-js.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+  </body>
+</html>
