@@ -112,14 +112,72 @@ p, label {
 
 @media (max-width: 600px) {
   #main-content, body > *:not(script) {
-    max-width: 98vw;
-    padding: 16px 4vw;
+    max-width: 100vw;
+    padding: 8vw 2vw 6vw 2vw;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0;
   }
   .title-oyster {
-    font-size: 1.3rem;
-    margin-top: 18px;
-    margin-bottom: 12px;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
   }
+  .input-box {
+    font-size: 1.05rem;
+    padding: 12px 10px;
+  }
+  .month-button, .typeofdata-button, .add-button, .submit-button {
+    font-size: 1.05rem;
+    padding: 16px 0;
+    margin: 12px 0;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+  .data-row {
+    flex-direction: row;
+    padding: 10px 6px;
+    margin-bottom: 10px;
+  }
+  .data-index {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    margin-right: 10px;
+    border-radius: 20%;
+  }
+  .data-value {
+    font-size: 1.08rem;
+    margin-left: 4px;
+  }
+  .delete-button {
+    font-size: 1rem;
+    padding: 6px 12px;
+    margin-left: 10px;
+    border-radius: 6px;
+  }
+  .data-display {
+    font-size: 1.05rem;
+    padding: 10px 6px;
+  }
+}
+
+/* Touch feedback for buttons */
+.month-button:active, .typeofdata-button:active, .add-button:active, .submit-button:active {
+  background: #d1d5db;
+  color: #222;
+}
+.typeofdata-button.selected:active, .month-button.selected:active {
+  background: #388e3c;
+  color: #fff;
+}
+.add-button:active, .submit-button:active {
+  background: #3730a3;
+  color: #fff;
+}
+.delete-button:active {
+  background: #b91c1c;
+  color: #fff;
 }
 
 .data-display {
