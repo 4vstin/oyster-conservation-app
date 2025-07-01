@@ -111,12 +111,19 @@ p, label {
 }
 
 @media (max-width: 600px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
   #main-content, body > *:not(script) {
     max-width: 100vw;
-    padding: 8vw 2vw 6vw 2vw;
+    width: 100vw;
+    padding: 0;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 0;
+    margin: 0;
   }
   .title-oyster {
     font-size: 1.1rem;
@@ -135,26 +142,18 @@ p, label {
     border-radius: 8px;
   }
   .data-row {
-    flex-direction: row;
-    padding: 10px 6px;
-    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
   .data-index {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
-    margin-right: 10px;
-    border-radius: 20%;
-  }
-  .data-value {
-    font-size: 1.08rem;
-    margin-left: 4px;
+    margin-right: 8px;
   }
   .delete-button {
-    font-size: 1rem;
-    padding: 6px 12px;
-    margin-left: 10px;
-    border-radius: 6px;
+    margin-left: 8px;
   }
   .data-display {
     font-size: 1.05rem;
