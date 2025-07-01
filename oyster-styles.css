@@ -118,8 +118,8 @@ p, label {
   html, body {
     overflow-x: hidden;
     width: 200vw;
-    margin: 0;
-    padding: 0;
+    margin: 50px;
+    padding: 50px;
   }
   #main-content, body > *:not(script) {
     max-width: 100vw;
