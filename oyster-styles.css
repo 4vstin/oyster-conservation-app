@@ -140,6 +140,7 @@ body {
   color: #dc2626;
   font-size: 0.95rem;
   margin-top: -35px;
+  margin-bottom: 10px;
 }
 
 p, label {
@@ -213,7 +214,7 @@ p, label {
   .submit-button {
     position: sticky;
     bottom: 24px;
-    margin-bottom:30px;
+    margin-bottom:25px;
     z-index:10;
   }
 
@@ -406,4 +407,49 @@ p, label {
 
 .submit-button {
   background: hotpink !important;
+}
+
+.modal#error-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal#error-modal .modal-content {
+  background-color: #fff;
+  padding: 32px 24px 24px 24px;
+  border: 1px solid #888;
+  width: 90vw;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+}
+#error-modal-ok {
+  background: #4f46e5;
+  color: #fff;
+  border: 2px solid #6366f1;
+  margin-top: 18px;
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+#error-modal-ok:hover {
+  background: #6366f1;
 }

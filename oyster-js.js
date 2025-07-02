@@ -83,16 +83,27 @@ displaySizeData();
 
 
 
+function showErrorModal(message) {
+  document.getElementById("error-modal-message").textContent = message;
+  document.getElementById("error-modal").style.display = "flex";
+}
+document.getElementById("error-modal-ok").onclick = function() {
+  document.getElementById("error-modal").style.display = "none";
+};
+
 function addData() {
   // Get the values from the input fields
   const oysterSize = document.getElementById("value-input").value;
 
   // Check if the oyster size is a number
-  if (isNaN(oysterSize) || oysterSize < 0) {
-    document.getElementById("error-message-size").innerHTML = "Value must be a valid number";
+  if (isNaN(oysterSize) || oysterSize < 0 || oysterSize === "") {
+    showErrorModal("Value must be a valid number");
     return;
-  } else {
-    document.getElementById("error-message-size").innerHTML = "";
+  }
+  // Check for max data points
+  if (sizeData.length >= 30) {
+    showErrorModal("You cannot enter more than 30 data points.");
+    return;
   }
 
   // Add the oyster size to the sizeData array
@@ -201,9 +212,20 @@ function submitData() {
     })
   })
   .then(response => response.json())
-  //.then(data => console.log(data));
+  .then(data => {
+    // Show success modal
+    document.getElementById("success-modal").style.display = "flex";
+    // Clear data and comments
+    sizeData = [];
+    localStorage.setItem("sizeData", JSON.stringify(sizeData));
+    displaySizeData();
+    document.getElementById("paraInput").value = "";
+  });
 }
 
+document.getElementById("success-modal-ok").onclick = function() {
+  document.getElementById("success-modal").style.display = "none";
+};
 
 // ADD listeners for the clicks
 document.getElementById("sizetype-button").addEventListener("click", () => setDataType("size"));
@@ -255,14 +277,21 @@ function setDataType(type) {
 
 function showConfirmationModal(e) {
   e.preventDefault();
-  document.body.style.overflow = "hidden";
   const cageID = Number(document.getElementById("id-input").value);
   //check if the cage ID is a number
-  if (isNaN(cageID) || cageID <= 0) {
-    document.getElementById("error-message-cage").innerHTML = "Cage ID# must be a valid number";
+  if (isNaN(cageID) || cageID <= 0 || document.getElementById("id-input").value === "") {
+    showErrorModal("Cage ID# must be a valid number");
+    document.getElementById("confirmation-modal").style.display = "none";
+    document.body.style.overflow = "";
     return;
-  } else {
-    document.getElementById("error-message-cage").innerHTML = "";
+  }
+
+  // check if there is data
+  if (sizeData.length == 0) {
+    showErrorModal("No data to submit");
+    document.getElementById("confirmation-modal").style.display = "none";
+    document.body.style.overflow = "";
+    return;
   }
 
   // Get values

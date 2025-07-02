@@ -8,7 +8,7 @@
   <body>
     <div id="main-content">
       <!-- title of project-->
-      <p class="title-oyster">Oyster Data Collection MODEL 9:55</p>
+      <p class="title-oyster">Oyster Data Collection</p>
 
       <!-- name input-->
       <!--<p class="names-title">Names:</p>
@@ -31,8 +31,6 @@
       <p id="data-input-title">Enter oyster size:</p>
       <input type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Enter value" class="input-box" id="value-input">
       <button class="add-button" id="add-button">Add Data</button>
-      <!--error message-->
-      <p id="error-message-size" class="error-message"></p>
 
       <!-- list that displays the oyster size data-->
       <p id="data-display-title">Oyster Size Data:</p>
@@ -48,7 +46,6 @@
 
       <!-- button to submit the data-->
       <button class="submit-button submit-button-extramargin" id="submit-button">Submit</button>
-      <p id="error-message-cage" class="error-message"></p>
     </div>
 
     <div id="confirmation-modal" class="modal" style="display:none;">
@@ -76,6 +73,22 @@
       </div>
     </div>
     
+    <div id="error-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Error</h2>
+        <p id="error-modal-message"></p>
+        <button id="error-modal-ok" class="submit-button">OK</button>
+      </div>
+    </div>
+
+    <div id="success-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Success</h2>
+        <p>Data submitted successfully!</p>
+        <button id="success-modal-ok" class="submit-button">OK</button>
+      </div>
+    </div>
+
     <script src="oyster-js.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
   </body>
