@@ -212,13 +212,13 @@ p, label {
 
   .submit-button {
     position: sticky;
-    bottom: 100px;
+    bottom: 200px;
     margin-bottom:0;
     z-index:10;
   }
 
   #main-content {
-    padding-bottom: 75px;
+    padding-bottom: 90px;
   }
 
   .modal {
