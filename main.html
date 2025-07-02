@@ -14,6 +14,11 @@
       <!--<p class="names-title">Names:</p>
       <input placeholder="Enter name" class="input-box" id="name-input">-->
 
+      <!-- email input-->
+      <p class="email-title">Email:</p>
+      <input placeholder="Enter email (optional)" class="input-box" id="email-input">
+
+      <!-- cage id input-->
       <p class="id-title">Cage ID#:</p>
       <input type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Enter ID#" class="input-box" id="id-input">
 
@@ -81,15 +86,32 @@
       </div>
     </div>
 
+    <div id="processing-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Processing Request</h2>
+        <p>Please wait while we process your submission...</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        </div>
+      </div>
+    </div>
+
     <div id="success-modal" class="modal" style="display:none;">
       <div class="modal-content">
         <h2>Success</h2>
         <p>Data submitted successfully!</p>
+        <p id="email-receipt-message" style="display:none; font-weight: 500;">A copy of your responses has been sent to your email.</p>
         <button id="success-modal-ok" class="submit-button">OK</button>
       </div>
     </div>
 
     <script src="oyster-js.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+        emailjs.init("p3npZNZS0Qh-04faz");
+      })();
+    </script>
   </body>
 </html>

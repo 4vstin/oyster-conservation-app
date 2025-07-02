@@ -453,3 +453,9 @@ p, label {
 #error-modal-ok:hover {
   background: #6366f1;
 }
+
+/* Spinning animation for processing modal */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

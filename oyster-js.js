@@ -213,18 +213,29 @@ function submitData() {
   })
   .then(response => response.json())
   .then(data => {
-    // Show success modal
-    document.getElementById("success-modal").style.display = "flex";
-    // Clear data and comments
-    sizeData = [];
-    localStorage.setItem("sizeData", JSON.stringify(sizeData));
-    displaySizeData();
-    document.getElementById("paraInput").value = "";
+    // Show processing modal first
+    document.getElementById("processing-modal").style.display = "flex";
+    
+    // Send email receipt first, then show success modal
+    sendEmailReceipt().then(() => {
+      // Hide processing modal
+      document.getElementById("processing-modal").style.display = "none";
+      // Show success modal after email is processed
+      document.getElementById("success-modal").style.display = "flex";
+      
+      // Clear data and comments
+      sizeData = [];
+      localStorage.setItem("sizeData", JSON.stringify(sizeData));
+      displaySizeData();
+      document.getElementById("paraInput").value = "";
+    });
   });
 }
 
 document.getElementById("success-modal-ok").onclick = function() {
   document.getElementById("success-modal").style.display = "none";
+  // Hide the email receipt message when closing the modal
+  document.getElementById("email-receipt-message").style.display = "none";
 };
 
 // ADD listeners for the clicks
@@ -367,5 +378,48 @@ window.onclick = function(event) {
     deleteModal.style.display = "none";
   }
 };
+
+function sendEmailReceipt() {
+  const email = document.getElementById("email-input").value.trim();
+  
+  // Only send email if an email address is provided
+  if (!email) {
+    console.log('No email provided, skipping email receipt');
+    // Return a resolved promise so the flow continues
+    return Promise.resolve();
+  }
+
+  const cageID = document.getElementById("id-input").value;
+  const month = monthReading === "aug" ? "August" : "September";
+  let type = "Size Records";
+  if (dataType === "count") type = "Spat Count Records";
+  if (dataType === "wild") type = "Wild Spat Records";
+  const dataList = sizeData.join(", ");
+  const comments = document.getElementById("paraInput").value;
+
+  // Prepare the template parameters
+  const templateParams = {
+    email: email,
+    cage_id: cageID,
+    month: month,
+    type: type,
+    data: dataList,
+    comments: comments
+  };
+
+  //console.log('Sending email with params:', templateParams);
+
+  // Use EmailJS v4 syntax and return the promise
+  return emailjs.send('service_uclwzai', 'template_vbhx2kn', templateParams, 'p3npZNZS0Qh-04faz')
+    .then(function(response) {
+      console.log('Email sent successfully!', response.status, response.text);
+      // Show email receipt message in success modal
+      document.getElementById("email-receipt-message").style.display = "block";
+    }, function(error) {
+      console.error('Failed to send email:', error);
+      console.error('Error details:', error.text);
+      // Don't show email receipt message if email failed
+    });
+}
 
 
