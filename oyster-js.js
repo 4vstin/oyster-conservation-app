@@ -88,8 +88,8 @@ function addData() {
   const oysterSize = document.getElementById("value-input").value;
 
   // Check if the oyster size is a number
-  if (isNaN(oysterSize) || oysterSize <= 0) {
-    document.getElementById("error-message-size").innerHTML = "Value must be a valid length";
+  if (isNaN(oysterSize) || oysterSize < 0) {
+    document.getElementById("error-message-size").innerHTML = "Value must be a valid number";
     return;
   } else {
     document.getElementById("error-message-size").innerHTML = "";
@@ -124,7 +124,7 @@ function displaySizeData() {
   if (dataType == "size") {
     unit = "mm";
   } else{
-    unit = "spats";
+    unit = "spat";
   }
 
   for (let i = 0; i < sizeData.length; i++) {
