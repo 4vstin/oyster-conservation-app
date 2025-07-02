@@ -213,7 +213,7 @@ p, label {
   .submit-button {
     position: sticky;
     bottom: 24px;
-    margin-bottom:50px;
+    margin-bottom:30px;
     z-index:10;
   }
 
@@ -401,4 +401,9 @@ p, label {
 .delete-all-button:active {
   background: #991b1b;
   color: #fff;
+}
+
+
+.submit-button {
+  background: hotpink !important;
 }
