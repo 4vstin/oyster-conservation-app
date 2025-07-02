@@ -404,11 +404,6 @@ p, label {
   color: #fff;
 }
 
-
-.submit-button {
-  background: hotpink !important;
-}
-
 .modal#error-modal {
   display: none;
   position: fixed;
@@ -459,3 +454,9 @@ p, label {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/*
+.submit-button {
+  background: hotpink !important;
+}
+*/
