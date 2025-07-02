@@ -185,6 +185,9 @@ function saveCageID() {
 }
 
 function submitData() {
+  // Show processing modal first
+  document.getElementById("processing-modal").style.display = "flex";
+
   //get the data from the input fields
   //const name = document.getElementById("name-input").value;
   const cageID = Number(document.getElementById("id-input").value);
@@ -213,8 +216,7 @@ function submitData() {
   })
   .then(response => response.json())
   .then(data => {
-    // Show processing modal first
-    document.getElementById("processing-modal").style.display = "flex";
+    
     
     // Send email receipt first, then show success modal
     sendEmailReceipt().then(() => {
