@@ -212,7 +212,7 @@ p, label {
 
   .submit-button {
     position: sticky;
-    bottom: 24px;
+    bottom: 100px;
     margin-bottom:0;
     z-index:10;
   }
