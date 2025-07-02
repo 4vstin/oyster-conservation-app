@@ -155,7 +155,7 @@ p, label {
     margin: 0;
     padding: 0;
   }
-  #main-content, body > *:not(script) {
+  #main-content, body > *:not(script):not(.modal) {
     max-width: 94vw;
     width: 94vw;
     margin-left: 3vw;
@@ -212,13 +212,19 @@ p, label {
 
   .submit-button {
     position: sticky;
-    bottom: 16px;
+    bottom: 32px;
     margin-bottom:0;
     z-index:10;
   }
 
   #main-content {
-    padding-bottom: 64px;
+    padding-bottom: 100px;
+  }
+
+  .modal {
+    margin: 0 !important;
+    width: 100vw !important;
+    min-height: 100vh;
   }
 }
 
