@@ -276,6 +276,16 @@ p, label {
     width: 100vw !important;
     min-height: 100vh;
   }
+
+  .modeal-content {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-bottom: 16px;
+  }
+
+  .modal-data-list {
+    max-height: 30vh;
+  }
 }
 
 /* Touch feedback for buttons */
@@ -525,12 +535,6 @@ p, label {
   100% { transform: rotate(360deg); }
 }
 
-/*
-.submit-button {
-  background: hotpink !important;
-}
-*/
-
 .dropdown {
   width: 100%;
   padding: 10px 36px 10px 12px;
@@ -592,4 +596,10 @@ p, label {
 }
 #success-modal-ok:hover, #error-modal-ok:hover {
   background: #6366f1;
+}
+
+
+
+.submit-button {
+  background: hotpink !important;
 }
