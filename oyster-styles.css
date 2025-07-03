@@ -204,6 +204,8 @@ p, label {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    height: 100%;
   }
   #main-content, body > *:not(script):not(.modal) {
     max-width: 94vw;
@@ -215,6 +217,14 @@ p, label {
     box-shadow: none;
     margin-top: 0;
   }
+
+  #main-content {
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
   .title-oyster {
     font-size: 1.1rem;
     margin-top: 12px;
@@ -280,11 +290,18 @@ p, label {
   .modal-content {
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    padding-bottom: 16px;
+    padding: 32px 24px calc(env(safe-area-inset-bottom,16px)) 24px;
   }
 
   .modal-data-list {
-    max-height: 30vh;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+
+  .submit-button, .typeofdata-button {
+    position: sticky;
+    bottom: calc(env(safe-area-inset-bottom,16px) + 16px);
+    z-index: 10;
   }
 }
 
@@ -599,8 +616,7 @@ p, label {
 }
 
 
-/*
+
 .submit-button {
   background: hotpink !important;
 }
-*/
