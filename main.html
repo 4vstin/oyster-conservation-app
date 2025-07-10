@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Oyster Data Collection</title>
+    <link rel="stylesheet" href="oyster-styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="main-content">
+      <!-- title of project-->
+      <p class="title-oyster">Oyster Conservationist Data Collection</p>
+
+      <!-- name input-->
+      <!--<p class="names-title">Names:</p>
+      <input placeholder="Enter name" class="input-box" id="name-input">-->
+
+      <!-- email input-->
+      <p class="email-title">Email:</p>
+      <input placeholder="Enter email (optional)" class="input-box" id="email-input">
+
+      <!-- cage id input-->
+      <p class="id-title">Cage ID#:</p>
+      <input type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Enter ID#" class="input-box" id="id-input">
+
+      <!-- Slect whether August or September-->
+      <p>Select Month of Measurement:</p>
+      <select id="month-select" class="dropdown">
+        <option value="aug">August</option>
+        <option value="sep">September</option>
+      </select>
+
+      <p>Select Data Type:</p>
+      <select id="datatype-select" class="dropdown">
+        <option value="size">Oyster Size</option>
+        <option value="count">Shell Spat Count</option>
+        <option value="wild">Wild Shell Spat Count</option>
+      </select>
+
+      <!-- oyster size input-->
+      <p id="data-input-title">Enter oyster size:</p>
+      <input type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Enter value and click Add Data" class="input-box" id="value-input">
+      <button class="add-button" id="add-button">Add Data Entry</button>
+
+      <!-- list that displays the oyster size data-->
+      <p id="data-display-title">Oyster Size Data:</p>
+      <p id="size-data-display" class="data-display"></p>
+
+      <!-- delete all button -->
+      <button class="delete-all-button" id="delete-all-button">Delete All</button>
+
+      <!-- extra comments text box-->
+      <p>Comments:</p>
+      <textarea id="paraInput" rows="4" cols="50" placeholder="Any predators, fouling agents, or other notes... (optional)"></textarea><br><br>
+
+      <!-- photo upload section -->
+      <p>Upload Photo (optional):</p>
+      <input type="file" id="file-input" accept="image/*" capture="environment" class="input-box">
+      <p>Photos will be uploaded with your submission.</p>
+    
+      <!-- button to submit the data-->
+      <button class="submit-button submit-button-extramargin" id="submit-button">Submit</button>
+    </div>
+
+    <!-- Simple submit confirmation modal -->
+    <div id="simple-submit-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Are you sure you want to submit?</h2>
+        <button id="simple-modal-yes-submit" class="submit-button">Yes, Submit</button>
+        <button id="simple-modal-cancel" class="typeofdata-button">Go Back</button>
+      </div>
+    </div>
+
+    <div id="delete-all-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span id="close-delete-modal" class="close">&times;</span>
+        <h2>Confirm Delete All</h2>
+        <p>Are you sure you want to delete all data entries?</p>
+        <p><strong>This action cannot be undone.</strong></p>
+        <button id="modal-yes-delete" class="delete-all-button">Delete All</button>
+        <button id="modal-cancel-delete" class="typeofdata-button">Cancel</button>
+      </div>
+    </div>
+    
+    <!-- Modal for confirming single data entry deletion -->
+    <div id="delete-single-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span id="close-delete-single-modal" class="close">&times;</span>
+        <h2>Confirm Delete Entry</h2>
+        <p>Are you sure you want to delete this data entry?</p>
+        <p id="delete-single-value" style="font-weight: 500;"></p>
+        <button id="modal-yes-delete-single" class="delete-all-button">Delete</button>
+        <button id="modal-cancel-delete-single" class="typeofdata-button">Cancel</button>
+      </div>
+    </div>
+    
+    <div id="error-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Error</h2>
+        <p id="error-modal-message"></p>
+        <button id="error-modal-ok" class="submit-button">OK</button>
+      </div>
+    </div>
+
+    <div id="processing-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Processing Request</h2>
+        <p>Please wait while we process your submission...</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <div style="display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h2>Success</h2>
+        <p>Data submitted successfully!</p>
+        <p id="email-receipt-message" style="display:none; font-weight: 500;">A copy of your responses has been sent to your email.</p>
+        <button id="success-modal-ok" class="submit-button">OK</button>
+      </div>
+    </div>
+
+    <script src="oyster-js.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function(){
+        emailjs.init("p3npZNZS0Qh-04faz");
+      })();
+    </script>
+  </body>
+</html>
