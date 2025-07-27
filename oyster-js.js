@@ -255,6 +255,7 @@ function submitData() {
     newData.push([cageID, monthReading, dataType, sizeData[i], extraComments]);
   }
 
+  /*
   // Upload photo if selected
   const fileInput = document.getElementById('file-input');
   let photoUploadPromise = Promise.resolve();
@@ -262,7 +263,7 @@ function submitData() {
   if (fileInput && fileInput.files.length > 0) {
     const formData = new FormData();
     formData.append('photo', fileInput.files[0]);
-    photoUploadPromise = fetch('https://your-app-name.railway.app/upload-photo', {
+    photoUploadPromise = fetch('https://oyster-data-backend.onrender.com/upload-photo', {
       method: 'POST',
       body: formData,
     })
@@ -274,26 +275,24 @@ function submitData() {
       return data.fileId;
     });
   }
+  */
 
-  // Submit data and photo together
-  Promise.all([
-    fetch('https://sheetdb.io/api/v1/jnhhby8k1fo3b', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        data: newData.map(row => ({
-          cage_id: row[0],
-          month: row[1],
-          type: row[2],
-          value: row[3],
-          comment: row[4],
-          date: new Date().toISOString()
-        }))
-      })
-    }),
-    photoUploadPromise
-  ])
-  .then(([dataResponse, photoFileId]) => {
+  // Submit data only (photo upload disabled)
+  fetch('https://sheetdb.io/api/v1/jnhhby8k1fo3b', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      data: newData.map(row => ({
+        cage_id: row[0],
+        month: row[1],
+        type: row[2],
+        value: row[3],
+        comment: row[4],
+        date: new Date().toISOString().slice(0, 10)
+      }))
+    })
+  })
+  .then(dataResponse => {
     return sendEmailReceipt().then(() => {
       document.getElementById("processing-modal").style.display = "none";
       document.getElementById("success-modal").style.display = "flex";
@@ -301,8 +300,8 @@ function submitData() {
       localStorage.setItem("sizeData", JSON.stringify(sizeData));
       displaySizeData();
       document.getElementById("paraInput").value = "";
-      const fileInput = document.getElementById("file-input");
-      if (fileInput) fileInput.value = ""; // Clear file input
+      // const fileInput = document.getElementById("file-input");
+      // if (fileInput) fileInput.value = ""; // Clear file input
     });
   })
   .catch(error => {
@@ -365,5 +364,17 @@ const delAllBtn = document.getElementById("delete-all-button");
 if (delAllBtn) {
   delAllBtn.addEventListener("click", function() { pulseButton(delAllBtn); });
 }
+
+// Comment out file input change event for photo upload
+/*
+document.getElementById('file-input').addEventListener('change', function() {
+  const fileNameDisplay = document.getElementById('file-name-display');
+  if (this.files && this.files.length > 0) {
+    fileNameDisplay.textContent = this.files[0].name;
+  } else {
+    fileNameDisplay.textContent = '';
+  }
+});
+*/
 
 
