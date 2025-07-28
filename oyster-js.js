@@ -250,6 +250,7 @@ function submitData() {
   document.getElementById("processing-modal").style.display = "flex";
   const cageID = Number(document.getElementById("id-input").value);
   const extraComments = document.getElementById("paraInput").value;
+  const isOverride = extraComments.trim().toUpperCase() === "OVERRIDE";
   let newData = [];
   for (let i = 0; i < sizeData.length; i++) {
     newData.push([cageID, monthReading, dataType, sizeData[i], extraComments]);
@@ -277,32 +278,49 @@ function submitData() {
   }
   */
 
-  // Submit data only (photo upload disabled)
-  fetch('https://sheetdb.io/api/v1/jnhhby8k1fo3b', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      data: newData.map(row => ({
-        cage_id: row[0],
-        month: row[1],
-        type: row[2],
-        value: row[3],
-        comment: row[4],
-        date: new Date().toISOString().slice(0, 10)
-      }))
-    })
-  })
-  .then(dataResponse => {
-    return sendEmailReceipt().then(() => {
-      document.getElementById("processing-modal").style.display = "none";
-      document.getElementById("success-modal").style.display = "flex";
-      sizeData = [];
-      localStorage.setItem("sizeData", JSON.stringify(sizeData));
-      displaySizeData();
-      document.getElementById("paraInput").value = "";
-      // const fileInput = document.getElementById("file-input");
-      // if (fileInput) fileInput.value = ""; // Clear file input
+  // Handle data submission based on override status
+  let dataSubmissionPromise;
+  if (isOverride) {
+    // Skip data upload for OVERRIDE
+    dataSubmissionPromise = Promise.resolve();
+  } else {
+    // Submit data to sheet
+    dataSubmissionPromise = fetch('https://sheetdb.io/api/v1/jnhhby8k1fo3b', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        data: newData.map(row => ({
+          cage_id: row[0],
+          month: row[1],
+          type: row[2],
+          value: row[3],
+          comment: row[4],
+          date: new Date().toISOString().slice(0, 10)
+        }))
+      })
     });
+  }
+
+  dataSubmissionPromise
+  .then(dataResponse => {
+    // Send confirmation email to admin (unless OVERRIDE)
+    let adminEmailPromise = Promise.resolve();
+    if (!isOverride) {
+      adminEmailPromise = sendAdminConfirmationEmail();
+    }
+    
+    // Send email receipt to user (if email provided)
+    return Promise.all([adminEmailPromise, sendEmailReceipt()]);
+  })
+  .then(() => {
+    document.getElementById("processing-modal").style.display = "none";
+    document.getElementById("success-modal").style.display = "flex";
+    sizeData = [];
+    localStorage.setItem("sizeData", JSON.stringify(sizeData));
+    displaySizeData();
+    document.getElementById("paraInput").value = "";
+    // const fileInput = document.getElementById("file-input");
+    // if (fileInput) fileInput.value = ""; // Clear file input
   })
   .catch(error => {
     document.getElementById("processing-modal").style.display = "none";
@@ -335,6 +353,34 @@ function sendEmailReceipt() {
       document.getElementById("email-receipt-message").style.display = "block";
     }, function(error) {
       // Email failed, do not show receipt message
+    });
+}
+
+function sendAdminConfirmationEmail() {
+  const cageID = document.getElementById("id-input").value;
+  const month = monthReading === "aug" ? "August" : "September";
+  let type = "Oyster Size";
+  if (dataType === "count") type = "Shell Spat Count";
+  if (dataType === "wild") type = "Wild Shell Spat Count";
+  const dataList = sizeData.join(", ");
+  const comments = document.getElementById("paraInput").value;
+  const userEmail = document.getElementById("email-input").value.trim();
+  
+  const templateParams = {
+    email: "kelsey.meyer@tnc.org",
+    cage_id: cageID,
+    month: month,
+    type: type,
+    data: dataList,
+    comments: comments,
+    user_email: userEmail || "No email provided"
+  };
+  
+  return emailjs.send('service_uclwzai', 'template_vbhx2kn', templateParams, 'p3npZNZS0Qh-04faz')
+    .then(function(response) {
+      console.log('Confirmation email sent to admin');
+    }, function(error) {
+      console.error('Failed to send confirmation email to admin:', error);
     });
 }
 
