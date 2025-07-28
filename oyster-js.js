@@ -244,6 +244,17 @@ function setDataType(type) {
 }
 
 // =====================
+// Utility Functions
+// =====================
+function formatDateForSheet(date) {
+  // Format date as YYYY-MM-DD and ensure it's treated as text
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// =====================
 // Submission & Email
 // =====================
 function submitData() {
@@ -295,7 +306,7 @@ function submitData() {
           type: row[2],
           value: row[3],
           comment: row[4],
-          date: new Date().toISOString().slice(0, 10)
+          date: formatDateForSheet(new Date())
         }))
       })
     });
