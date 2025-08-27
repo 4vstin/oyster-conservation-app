@@ -306,7 +306,8 @@ function submitData() {
           type: row[2],
           value: row[3],
           comment: row[4],
-          date: formatDateForSheet(new Date())
+          date: formatDateForSheet(new Date()),
+          email: document.getElementById("email-input").value.trim()
         }))
       })
     });
